@@ -1,0 +1,75 @@
+<h2 class="content-block">영화예매</h2>
+
+<div class="main">
+  <div class="movie-select">
+    <div class="ms-title">
+      영화 상영정보
+    </div>
+    <div class="ms-content">
+      <dx-tree-view class="movie-list"
+        [dataSource]="continents"
+        selectionMode="single"
+        [selectByClick]="true"
+        (onItemSelectionChanged)="changeSelection($event)"
+      ></dx-tree-view>
+    </div>
+  </div>
+  <div class="time-select">
+    <div class="ts-title">
+      영화 정보
+    </div>
+    <div class="ts-image">
+      <img class="ts-image-size" [src]="countryData.flag" />
+    </div>
+    <div class="ts-content">
+      <div class="right-content">
+        <div class="title-container">
+
+          <div>
+            <div class="country-name">{{ countryData.fullName }}</div>
+            <div class="screen-time">상영시간:{{ countryData.area }}~{{ countryData.gdp}}</div>
+            <div><html>{{ countryData.description }}</html></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="seat-info">
+    <div class="seat-select">
+      <div class="siss-title">
+        좌석
+      </div>
+      <div class="siss-content">
+        <div class="screen-area">screen</div>
+        <div class="seat-area">
+          <div *ngFor="let screenRoomSeat of countryData.screenRoomSeat">
+            <div class="nextSeatPosition" *ngIf="screenRoomSeat.seatRow!='A'&&screenRoomSeat.seatColumn=='1'"></div>
+            <div class="seat-box-left-row" *ngIf="screenRoomSeat.seatColumn=='1'">{{screenRoomSeat.seatRow}}열</div>
+            <dx-button class="seat-box-left"
+                       text="{{screenRoomSeat.seatRow}}{{screenRoomSeat.seatColumn}} "
+            >
+            </dx-button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reservation-info">
+      <div class="siri-title">
+        예매<br>정보
+      </div>
+      <div class="siri-content">
+        <div class="siri-content-title">영화명 : {{ countryData.fullName }}</div>
+        <div class="siri-content-fee">   {{ countryData.basicFee }}원</div>
+        <div class="siri-content-sign">-</div>
+        <div class="siri-content-discount">{{ countryData.discountFee }}원</div>
+        <div class="siri-content-sign">=</div>
+        <div class="siri-content-total">{{ countryData.totalFee }}원</div>
+        <div class="siri-content-submit"><dx-button class="siri-content-reservation-button">예매하기</dx-button></div>
+      </div>
+    </div>
+  </div>
+
+</div>

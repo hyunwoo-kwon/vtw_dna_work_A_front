@@ -1,0 +1,98 @@
+<dx-popup
+  [width]="1000"
+  [height]="800"
+  [showTitle]="true"
+  [title]="isCreateMode() ? '상영관 생성' : '상영관 좌석변경'"
+  [dragEnabled]="false"
+  [closeOnOutsideClick]="true"
+  [showCloseButton]="true"
+  container=".dx-viewport"
+  [(visible)]="popupVisible">
+
+
+  <dxi-toolbar-item *ngIf="isCreateMode()"
+    widget="dxButton"
+    toolbar="bottom"
+    location="before"
+    [options]="{text: '저장', onClick: save}"
+  >
+
+  </dxi-toolbar-item>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="before"
+    [options]="{text: '취소', onClick: cancel}"
+  >
+  </dxi-toolbar-item>
+  <div class="popup-edit-form" *dxTemplate="let data of 'content'">
+    <dx-validation-group>
+      <div class="dx-fieldset">
+        <div class="dx-fieldset-header">기본정보</div>
+
+        <div class="dx-field" *ngIf="isUpdateMode()">
+          <div class="dx-field-label">상영관</div>
+          <div class="dx-field-value-static">{{screenRoom.screenRoomSeq}}관</div>
+        </div>
+
+        <div class="dx-field" *ngIf="isUpdateMode()">
+          <div class="dx-field-label">상영관 총 행</div>
+          <div class="dx-field-value-static">{{screenRoom.totalSeatRow}}행</div>
+        </div>
+
+        <div class="dx-field" *ngIf="isUpdateMode()">
+          <div class="dx-field-label">상영관 총 열</div>
+          <div class="dx-field-value-static">{{screenRoom.totalSeatColumn}}열</div>
+        </div>
+        <input #ref1 type="hidden" value="t234" />
+        <div class="dx-field" *ngIf="isUpdateMode()">
+          좌석배치표
+          <div class="seat-area">
+            <div *ngFor="let screenRoomSeat of screenRoom.screenRoomSeatList">
+              <div class="nextSeatPosition" *ngIf="screenRoomSeat.seatRow!='A'&&screenRoomSeat.seatColumn=='1'"></div>
+                <div class="seat-box-left-row" *ngIf="screenRoomSeat.seatColumn=='1'">{{screenRoomSeat.seatRow}}열</div>
+                <dx-button class="seat-box-left"
+                           text="{{screenRoomSeat.seatRow}}{{screenRoomSeat.seatColumn}} "
+                >
+                </dx-button>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="dx-field" *ngIf="isCreateMode()">
+          <div class="dx-field-label">상영관</div>
+          저장시 신규상영관 번호 생성
+        </div>
+
+        <div class="dx-field" *ngIf="isCreateMode()">
+          <div class="dx-field-label">상영관 총 행</div>
+          <dx-text-box class="dx-field-value" [(value)]="screenRoom.totalSeatRow">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="상영관의 행 열 수를 작성하세요(영어로A~Z)"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+
+        <div class="dx-field" *ngIf="isCreateMode()">
+          <div class="dx-field-label">상영관 총 열</div>
+          <dx-text-box class="dx-field-value" [(value)]="screenRoom.totalSeatColumn">
+            <dx-validator>
+              <dxi-validation-rule type="required" message="상영관의 총 열 수를 작성하세요(숫자로)"></dxi-validation-rule>
+            </dx-validator>
+          </dx-text-box>
+        </div>
+
+        <div class="dx-field" *ngIf="isCreateMode()">
+          <div class="dx-field-label">좌석배치도</div>
+          저장시 좌석 배치도 생성
+        </div>
+
+        <dx-validation-summary></dx-validation-summary>
+
+      </div>
+    </dx-validation-group>
+  </div>
+
+
+</dx-popup>

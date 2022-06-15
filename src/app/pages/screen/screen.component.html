@@ -1,0 +1,42 @@
+<h2 class="content-block">상영관 목록</h2>
+
+
+<div class="main">
+
+  <div class="screen-room-list" >
+    <div class="crud-buttons">
+      <dx-button
+        class="crud-button"
+        text="조회"
+        (onClick)="search()"
+      ></dx-button>
+    </div>
+    <dx-data-grid
+      [dataSource]="screen"
+      [showBorders]="true"
+      [remoteOperations]="true"
+      [hoverStateEnabled]="true"
+      [selectedRowKeys]="[]"
+    >
+      <dxi-column dataField="screenSeq" dataType="number" caption="상영시간 고유번호" ></dxi-column>
+      <dxi-column dataField="movie.krName" dataType="number" caption="영화명"></dxi-column>
+      <dxi-column dataField="screenRoomSeq" dataType="number" caption="상영관" ></dxi-column>
+      <dxi-column dataField="screenDate" dataType="string" caption="상영일" ></dxi-column>
+      <dxi-column dataField="screenRound" dataType="number" caption="상영회차" ></dxi-column>
+      <dxi-column dataField="startTime" dataType="number" caption="상영시작시간"></dxi-column>
+      <dxi-column dataField="endTime" dataType="string" caption="상영종료시간"></dxi-column>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true"
+        [visible]="true"
+      ></dxo-pager>
+    </dx-data-grid>
+  </div>
+</div>
+
+
+<sample-screenRoom-edit-popup></sample-screenRoom-edit-popup>
+

@@ -1,0 +1,49 @@
+<h2 class="content-block">상영관 목록</h2>
+
+
+<div class="main">
+
+  <div class="screen-room-list" >
+    <div class="crud-buttons">
+      <dx-button
+        class="crud-button"
+        text="조회"
+        (onClick)="search()"
+      ></dx-button>
+      <dx-button
+        class="crud-button"
+        text="생성"
+        (onClick)="create()"
+      ></dx-button>
+      <dx-button
+        class="crud-button"
+        text="변경"
+        (onClick)="update()"
+      ></dx-button>
+    </div>
+
+    <dx-data-grid
+      [dataSource]="screenRooms"
+      [showBorders]="true"
+      [remoteOperations]="true"
+      [hoverStateEnabled]="true"
+      [selectedRowKeys]="[]"
+    >
+      <dxi-column dataField="screenRoomSeq" dataType="number" caption="상영관 번호"></dxi-column>
+      <dxi-column dataField="totalSeatRow" dataType="string" caption="상영관 총 행"></dxi-column>
+      <dxi-column dataField="totalSeatColumn" dataType="string" caption="상영관 총 열"></dxi-column>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[5, 10, 20]"
+        [showInfo]="true"
+        [visible]="true"
+      ></dxo-pager>
+    </dx-data-grid>
+  </div>
+</div>
+
+
+<sample-screenRoom-edit-popup></sample-screenRoom-edit-popup>
+
